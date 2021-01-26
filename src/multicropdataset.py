@@ -7,7 +7,7 @@
 import random
 from logging import getLogger
 
-import cv2
+#import cv2
 from PIL import ImageFilter
 import numpy as np
 import torchvision.datasets as datasets
@@ -36,7 +36,6 @@ class MultiCropDataset(datasets.ImageFolder):
             self.samples = self.samples[:size_dataset]
         self.return_index = return_index
 
-        color_transform = [get_color_distortion(), RandomGaussianBlur()]
         if pil_blur:
             color_transform = [get_color_distortion(), PILRandomGaussianBlur()]
         mean = [0.485, 0.456, 0.406]
@@ -65,13 +64,13 @@ class MultiCropDataset(datasets.ImageFolder):
         return multi_crops
 
 
-class RandomGaussianBlur(object):
-    def __call__(self, img):
-        do_it = np.random.rand() > 0.5
-        if not do_it:
-            return img
-        sigma = np.random.rand() * 1.9 + 0.1
-        return cv2.GaussianBlur(np.asarray(img), (23, 23), sigma)
+#class RandomGaussianBlur(object):
+#    def __call__(self, img):
+#        do_it = np.random.rand() > 0.5
+#        if not do_it:
+#            return img
+#        sigma = np.random.rand() * 1.9 + 0.1
+#        return cv2.GaussianBlur(np.asarray(img), (23, 23), sigma)
 
 
 class PILRandomGaussianBlur(object):

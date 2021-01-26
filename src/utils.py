@@ -78,7 +78,8 @@ def initialize_exp(params, *args, dump_params=True):
     - create a logger
     - create a panda object to keep track of the training statistics
     """
-
+    if not params.rank and not os.path.isdir(params.dump_path):
+      os.mkdir(params.dump_path)
     # dump parameters
     if dump_params:
         pickle.dump(params, open(os.path.join(params.dump_path, "params.pkl"), "wb"))
